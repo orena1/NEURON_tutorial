@@ -10,8 +10,8 @@ plt.ion()
 v_rest = -60 # the baseline voltage.
 
 h("create soma")
-h.soma.L    = 7
-h.soma.diam = 7
+h.soma.L    = 25
+h.soma.diam = 25
 h.soma.Ra   = 100
 h.soma.insert('pas')
 h.soma.g_pas = 1/20000
@@ -36,7 +36,7 @@ h.dend.connect(h.soma, 1, 0)  #connect the end of the soma to the start of the d
 
 # set number of segement
 h("forall { nseg = int((L/(0.1*lambda_f(100))+0.9)/2)*2 + 1  }")
-
+h.define_shape()
 
 #########################
 # # Set up experiment # #
@@ -47,7 +47,7 @@ hotspot_NMDA_synapses = []
 hotspot_NMDA_netcons  = []
 hotspot_NMDA_netstims = []
 for j in range(20):
-    hotspot_NMDA_synapses.append(h.ProbAMPANMDA_EMS(0.5, sec = h.dend))
+    hotspot_NMDA_synapses.append(h.ProbAMPANMDA2_RATIO(0.6, sec = h.dend))
     hotspot_NMDA_netstims.append(h.NetStim(0.5, sec = h.dend))
     hotspot_NMDA_netcons.append(h.NetCon(hotspot_NMDA_netstims[j], hotspot_NMDA_synapses[j]))
 
@@ -55,23 +55,23 @@ for j in range(20):
     hotspot_NMDA_synapses[j].tau_d_AMPA = 1    # AMPA decay time
     hotspot_NMDA_synapses[j].e=0
     hotspot_NMDA_synapses[j].tau_r_NMDA = 0.23 # NMDA rise time
-    hotspot_NMDA_synapses[j].tau_d_NMDA = 31   # NMDA decay time
-    hotspot_NMDA_synapses[j].NMDA_ratio = 1/3.57
+    hotspot_NMDA_synapses[j].tau_d_NMDA = 55   # NMDA decay time
 
-    hotspot_NMDA_netcons[j].weight[0]= 0.85 # strength of the synapse
+
+    hotspot_NMDA_netcons[j].weight[0]= 0.5 # strength of the synapse
 
     hotspot_NMDA_netstims[j].number   = 9e9 # number of synaptic activation
     hotspot_NMDA_netstims[j].noise    = 1   # randomness
     hotspot_NMDA_netstims[j].interval = 50  # mean time between spikes |50 ms = 20 Hz|
 
 #create one inhibitory synapse at location 0.1
-on_path_inhibition = h.Exp2Syn(0.1, sec = h.dend) 
+on_path_inhibition = h.Exp2Syn(0.2, sec = h.dend) 
 on_path_inhibition.tau1 = 0.01 # synapse rise time
 on_path_inhibition.tau2 = 9e9  # synapse decay time
 on_path_inhibition.e    = v_rest
 
 #create one inhibitory synapse at location 0.9
-off_path_inhibition  = h.Exp2Syn(0.9, sec = h.dend)
+off_path_inhibition  = h.Exp2Syn(0.99, sec = h.dend)
 off_path_inhibition.tau1 = 0.01
 off_path_inhibition.tau2 = 9e9
 off_path_inhibition.e    = v_rest
@@ -106,7 +106,7 @@ h.tstop = 5000  # set simulation time
 ###########################################
 # Run simulation with proximal inhibition #
 ###########################################
-inhibition_weight = 0.0025
+inhibition_weight = 0.0045
 
 on_path_netcon.weight[0]  = inhibition_weight # activate the on_path synapse 
 off_path_netcon.weight[0] = 0 # deactivate the off path synapse by changing its conductance to 0 
