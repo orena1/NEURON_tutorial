@@ -27,3 +27,15 @@ echo  'export PYTHONPATH=/usr/local/nrn/lib/python:$PYTHONPATH' >> ~/.bashrc
 To test that NEURON was installed correctly open jupyter notebook or any python shell and check if the following commands are working:
 from neuron import gui
 from neuron import h
+
+
+
+Troubleshooting:
+
+1. (Ubuntu) - Can not compile mod files with nrnivmodl, get "/usr/bin/ld: cannot find -lncurses"
+  Solution: 
+    you need to install ncurses development, in ubuntu this is how to install it:
+                              sudo apt-get install libncurses-dev
+          
+
+
