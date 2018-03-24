@@ -1,5 +1,5 @@
 
-(After install Python as instructed )
+(After install Python as instructed here: http://swcarpentry.github.io/workshop-template/#python )
 Windows 
 
 1. Open https://www.neuron.yale.edu/neuron/download with your web browser. 
