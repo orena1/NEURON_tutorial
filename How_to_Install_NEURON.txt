@@ -1,0 +1,41 @@
+
+(After install Python as instructed here: http://swcarpentry.github.io/workshop-template/#python )
+Windows 
+
+1. Open https://www.neuron.yale.edu/neuron/download with your web browser. 
+2. Click on -  Download Windows installer (64 bit).
+3. Install NEURON and make sure to select "Set DOS environment. (Useful if ...)" when asked to select components to install.
+
+
+macOS
+
+1. Open https://www.neuron.yale.edu/neuron/download with your web browser. 
+2. Click on -  Download OSX installer.
+3. Install NEURON and click YES to all questions.
+
+
+Linux
+1. Open https://www.neuron.yale.edu/neuron/download with your web browser. 
+2. Download the NEURON installer which fits your linux distribution (.dep or .rpm).
+3. Install NEURON
+4. Open a terminal window.
+5. Type:
+echo  'export PYTHONPATH=/usr/local/nrn/lib/python:$PYTHONPATH' >> ~/.bashrc
+
+
+
+To test that NEURON was installed correctly open jupyter notebook or any python shell and check if the following commands are working:
+from neuron import gui
+from neuron import h
+
+
+
+Troubleshooting:
+
+1. (Ubuntu) - Can not compile mod files with nrnivmodl, get "/usr/bin/ld: cannot find -lncurses"
+  Solution: 
+    you need to install ncurses development, in ubuntu this is how to install it:
+                              sudo apt-get install libncurses-dev
+          
+
+
