@@ -1,9 +1,9 @@
-# his tutorial will help you understand how to use [The NEURON simulation environment](https://neuron.yale.edu/neuron/) 
+## This tutorial will help you understand how to use [The NEURON simulation environment](https://neuron.yale.edu/neuron/) 
 
 ![main](main.JPG "main")
 
 
-## Instructions
+### Instructions
 
 In order to user this tutorial you need to install NEURON (read how to install NEURON in How_to_Install_NEURON.txt) after that you can decide to use jupyter notebook or Python scripts.
 
