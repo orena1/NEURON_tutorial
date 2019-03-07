@@ -5,9 +5,10 @@
 
 #### Instructions
 
-In order to user this tutorial you need to install NEURON (read how to install NEURON in How_to_Install_NEURON.txt) after that you can decide to use jupyter notebook or Python scripts.
+In order to user this tutorial you need to install NEURON (read how to install NEURON in How_to_Install_NEURON.txt), after installing NERUON you can decide whether to use jupyter notebook or Python scripts.
 
-In anyway you need to complie to mods, for exmaple if you decide to use the Jupyter_notebooks (Linux):
+You will also need to complie to mod files. 
+For exmaple, if you decide to use the Jupyter_notebooks (Linux):
 1. open Terminal
 2. go to Jupyter_notebooks directory
 3. Type: nrnivmodl mods
