@@ -2,6 +2,8 @@
 
 ![main](main.JPG "main")
 
+[![Main](main.JPG)](https://github.com/orena1/NEURON_tutorial/raw/master/NEURON_tutorial.pptx "main")
+
 
 ### Instructions
 
