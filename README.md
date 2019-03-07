@@ -13,4 +13,4 @@ For exmaple, if you decide to use the Jupyter_notebooks (Linux):
 2. go to Jupyter_notebooks directory
 3. Type: nrnivmodl mods
 
-After completing the installations open the **NEURON_tutorial.pptx** file
+After completing the installations download the **[NEURON_tutorial.pptx](https://github.com/orena1/NEURON_tutorial/raw/master/NEURON_tutorial.pptx)** and follow the instructions in the presentation.
