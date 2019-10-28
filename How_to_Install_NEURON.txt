@@ -1,5 +1,5 @@
 
-(After install Python as instructed here: http://swcarpentry.github.io/workshop-template/#python )
+(After install Python as instructed here: https://www.anaconda.com/distribution/)
 Windows 
 
 1. Open https://www.neuron.yale.edu/neuron/download with your web browser. 
@@ -25,6 +25,7 @@ echo  'export PYTHONPATH=/usr/local/nrn/lib/python:$PYTHONPATH' >> ~/.bashrc
 
 
 To test that NEURON was installed correctly open jupyter notebook or any python shell and check if the following commands are working:
+python
 from neuron import gui
 from neuron import h
 
