@@ -24,7 +24,6 @@ echo  'export PYTHONPATH=/usr/local/nrn/lib/python:$PYTHONPATH' >> ~/.bashrc
 
 
 To test that NEURON was installed correctly open jupyter notebook or any python shell and check if the following commands are working:
-python
 from neuron import gui
 from neuron import h
 
