@@ -1,5 +1,5 @@
 
-(After install Python as instructed here: https://www.anaconda.com/distribution/)
+(After installing Python as instructed here: https://www.anaconda.com/distribution/)
 
 ## Windows 
 1. Open https://www.neuron.yale.edu/neuron/download with your web browser. 
