@@ -15,3 +15,5 @@ For example, if you decide to use the Jupyter_notebooks (Linux):
 
 After completing the installations download the **[NEURON_tutorial.pptx](https://github.com/orena1/NEURON_tutorial/raw/master/NEURON_tutorial.pptx)** and follow the instructions in the presentation. Suggested exercises are available in the slides notes
  
+ 
+ Feel free to open https://github.com/orena1/NEURON_tutorial/issues and ask questions. 
