@@ -6,15 +6,15 @@ import numpy as np
 plt.ion()
 
 # create model
-h("create soma")
-h.soma.L    = 10 # the length of the soma
-h.soma.diam = 10 # the diameter of the soma
-h.soma.Ra   = 100 # tha axial resistance
-h.soma.insert('pas') # add passive properties 
-h.soma.g_pas = 1/10000 # set the specific membrane to 10000 ohm*cm^2
+soma = h.Section(name='soma')
+soma.L    = 10 # the length of the soma
+soma.diam = 10 # the diameter of the soma
+soma.Ra   = 100 # tha axial resistance
+soma.insert('pas') # add passive properties 
+soma.g_pas = 1/10000 # set the specific membrane to 10000 ohm*cm^2
 
 # current clamp
-stim = h.IClamp(h.soma(0.5))
+stim = h.IClamp(soma(0.5))
 stim.delay = 20 # start of the current injection (ms)
 stim.dur   = 100 # duration (ms)
 stim.amp   = 0.01 # amplitude (nA)
@@ -22,7 +22,7 @@ stim.amp   = 0.01 # amplitude (nA)
 # record voltage of soma and injected current
 # and the time
 soma_v = h.Vector()
-soma_v.record(h.soma(0.5)._ref_v)
+soma_v.record(soma(0.5)._ref_v)
 
 stim_current = h.Vector()
 stim_current.record(stim._ref_i)

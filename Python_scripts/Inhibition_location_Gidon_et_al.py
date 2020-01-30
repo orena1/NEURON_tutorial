@@ -9,30 +9,30 @@ plt.ion()
 ###################
 v_rest = -60 # the baseline voltage.
 
-h("create soma")
-h.soma.L    = 25
-h.soma.diam = 25
-h.soma.Ra   = 100
-h.soma.insert('pas')
-h.soma.g_pas = 1/20000
-h.soma.e_pas = v_rest # the reversal of the passive channels
+soma = h.Section(name="soma")
+soma.L    = 25
+soma.diam = 25
+soma.Ra   = 100
+soma.insert('pas')
+soma.g_pas = 1/20000
+soma.e_pas = v_rest # the reversal of the passive channels
 
-h.soma.insert('na') # insert active conductances to the soma.
-h.soma.gbar_na = 5000 # set the Na conductance
-h.soma.insert('kv')
-h.soma.gbar_kv = 1500 # set the K conductance
+soma.insert('na') # insert active conductances to the soma.
+soma.gbar_na = 5000 # set the Na conductance
+soma.insert('kv')
+soma.gbar_kv = 1500 # set the K conductance
 h.celsius = 30
 
 
-h("create dend")
-h.dend.L    = 700  
-h.dend.diam = 1    
-h.dend.Ra   = 100 
-h.dend.insert('pas')
-h.dend.e_pas = v_rest
-h.dend.g_pas = 1/20000
+dend = h.Section(name="dend")
+dend.L    = 700  
+dend.diam = 1    
+dend.Ra   = 100 
+dend.insert('pas')
+dend.e_pas = v_rest
+dend.g_pas = 1/20000
 
-h.dend.connect(h.soma, 1, 0)  #connect the end of the soma to the start of the dendrite
+dend.connect(soma, 1, 0)  #connect the end of the soma to the start of the dendrite
 
 # set number of segement
 h("forall { nseg = int((L/(0.1*lambda_f(100))+0.9)/2)*2 + 1  }")
@@ -47,8 +47,8 @@ hotspot_NMDA_synapses = []
 hotspot_NMDA_netcons  = []
 hotspot_NMDA_netstims = []
 for j in range(20):
-    hotspot_NMDA_synapses.append(h.ProbAMPANMDA2_RATIO(0.6, sec = h.dend))
-    hotspot_NMDA_netstims.append(h.NetStim(0.5, sec = h.dend))
+    hotspot_NMDA_synapses.append(h.ProbAMPANMDA2_RATIO(0.6, sec = dend))
+    hotspot_NMDA_netstims.append(h.NetStim(0.5, sec = dend))
     hotspot_NMDA_netcons.append(h.NetCon(hotspot_NMDA_netstims[j], hotspot_NMDA_synapses[j]))
 
     hotspot_NMDA_synapses[j].tau_r_AMPA = 0.33 # AMPA rise time
@@ -65,19 +65,19 @@ for j in range(20):
     hotspot_NMDA_netstims[j].interval = 50  # mean time between spikes |50 ms = 20 Hz|
 
 #create one inhibitory synapse at location 0.1
-on_path_inhibition = h.Exp2Syn(0.2, sec = h.dend) 
+on_path_inhibition = h.Exp2Syn(0.2, sec = dend) 
 on_path_inhibition.tau1 = 0.01 # synapse rise time
 on_path_inhibition.tau2 = 9e9  # synapse decay time
 on_path_inhibition.e    = v_rest
 
 #create one inhibitory synapse at location 0.9
-off_path_inhibition  = h.Exp2Syn(0.99, sec = h.dend)
+off_path_inhibition  = h.Exp2Syn(0.99, sec = dend)
 off_path_inhibition.tau1 = 0.01
 off_path_inhibition.tau2 = 9e9
 off_path_inhibition.e    = v_rest
 
 #create a NetStim that will activate the synapses  at t=1000
-inhibition_netstim = h.NetStim(0.5, sec = h.dend)
+inhibition_netstim = h.NetStim(0.5, sec = dend)
 inhibition_netstim.number = 1   # number of synaptic activation
 inhibition_netstim.start = 1000 # activation start time
 inhibition_netstim.noise = 0    # randomness
@@ -89,13 +89,13 @@ off_path_netcon = h.NetCon(inhibition_netstim, off_path_inhibition)
 #########################
 
 soma_v = h.Vector()  # set up a recording vector
-soma_v.record(h.soma(0.5)._ref_v)  # record voltage at the middle of the soma
+soma_v.record(soma(0.5)._ref_v)  # record voltage at the middle of the soma
 
 # Record voltage from all segments in the dendrite
 dend_vs = []
-for seg in h.dend:
-	dend_vs.append(h.Vector())
-	dend_vs[-1].record(seg._ref_v)
+for seg in dend:
+    dend_vs.append(h.Vector())
+    dend_vs[-1].record(seg._ref_v)
 
 t = h.Vector()
 t.record(h._ref_t)  #record time.

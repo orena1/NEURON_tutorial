@@ -6,24 +6,24 @@ import numpy as np
 plt.ion()
 
 # create model
-h("create soma")
-h.soma.L    = 10
-h.soma.diam = 10
-h.soma.Ra   = 100
-h.soma.insert('pas')   # add passive properties  
-h.soma.g_pas = 1/10000 # set the specific membrane resistance to 10000 ohm*cm^2
+soma = h.Section(name="soma")
+soma.L    = 10
+soma.diam = 10
+soma.Ra   = 100
+soma.insert('pas')   # add passive properties  
+soma.g_pas = 1/10000 # set the specific membrane resistance to 10000 ohm*cm^2
 
 # add active conductances (the channels [mod files] are from Mainen and Sejnowski 1996)
-h.soma.insert('kv') # add potassium channel
-h.soma.gbar_kv = 2000 # set the potassium conductance
+soma.insert('kv') # add potassium channel
+soma.gbar_kv = 2000 # set the potassium conductance
 
-h.soma.insert('na') # add sodium channel
-h.soma.gbar_na = 8000 # set the sodium conductance
+soma.insert('na') # add sodium channel
+soma.gbar_na = 8000 # set the sodium conductance
 h.celsius = 30
 
 
 # current clamp
-stim = h.IClamp(h.soma(0.5))
+stim = h.IClamp(soma(0.5))
 stim.amp   = 0.007446
 stim.delay = 250
 stim.dur   = 1000
@@ -31,7 +31,7 @@ stim.dur   = 1000
 # record voltage of some and injected current
 # and the time
 soma_v = h.Vector()
-soma_v.record(h.soma(0.5)._ref_v)
+soma_v.record(soma(0.5)._ref_v)
 
 stim_current = h.Vector()
 stim_current.record(stim._ref_i)

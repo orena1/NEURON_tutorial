@@ -8,21 +8,21 @@ plt.ion()
 # # Build Model # #
 ###################
 
-h("create soma")
-h.soma.L    = 10 # um
-h.soma.diam = 10 # um
-h.soma.Ra   = 100
-h.soma.insert('pas')
-h.soma.g_pas = 1/10000 # 1/Rm - Rm ohm*cm^2
+soma = h.Section(name="soma")
+soma.L    = 10 # um
+soma.diam = 10 # um
+soma.Ra   = 100
+soma.insert('pas')
+soma.g_pas = 1/10000 # 1/Rm - Rm ohm*cm^2
 
-h("create dend")
-h.dend.L    = 500  # um
-h.dend.diam = 1    # um
-h.dend.Ra   = 100  # ohm*cm
-h.dend.insert('pas')
-h.dend.g_pas = 1/10000
+dend = h.Section(name="dend")
+dend.L    = 500  # um
+dend.diam = 1    # um
+dend.Ra   = 100  # ohm*cm
+dend.insert('pas')
+dend.g_pas = 1/10000
 
-h.dend.connect(h.soma, 1, 0)  #connect the end of the soma to the start of the dendrite
+dend.connect(soma, 1, 0)  #connect the end of the soma to the start of the dendrite
 
 h("forall { nseg = int((L/(0.1*lambda_f(100))+0.9)/2)*2 + 1  }")
 
@@ -30,17 +30,17 @@ h("forall { nseg = int((L/(0.1*lambda_f(100))+0.9)/2)*2 + 1  }")
 # # Set up experiment # #
 #########################
 
-stim = h.IClamp(h.soma(0.5))  # add a current clamp the the middle of the soma
+stim = h.IClamp(soma(0.5))  # add a current clamp the the middle of the soma
 stim.delay = 10  # ms
 stim.dur   = 100 # ms
 stim.amp   = 0.1 # nA
 
 soma_v = h.Vector()  # set up a recording vector
-soma_v.record(h.soma(0.5)._ref_v)  # record voltage at the middle of the soma
+soma_v.record(soma(0.5)._ref_v)  # record voltage at the middle of the soma
 
 # Record voltage from all segments in the dendrite
 dend_vs = []
-for seg in h.dend:
+for seg in dend:
 	dend_vs.append(h.Vector())
 	dend_vs[-1].record(seg._ref_v)
 
@@ -73,11 +73,11 @@ plt.tight_layout()
 
 h.tstop = 25
 stim.dur = 5
-h.soma.insert('kv') # add potassium channel
-h.soma.gbar_kv = 2000 # set the potassium conductance
+soma.insert('kv') # add potassium channel
+soma.gbar_kv = 2000 # set the potassium conductance
 
-h.soma.insert('na') # add sodium channel
-h.soma.gbar_na = 10000 # set the sodium conductance
+soma.insert('na') # add sodium channel
+soma.gbar_na = 10000 # set the sodium conductance
 h.celsius = 30
 
 h.run()
