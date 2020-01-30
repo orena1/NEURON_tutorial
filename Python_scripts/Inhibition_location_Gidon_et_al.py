@@ -47,8 +47,8 @@ hotspot_NMDA_synapses = []
 hotspot_NMDA_netcons  = []
 hotspot_NMDA_netstims = []
 for j in range(20):
-    hotspot_NMDA_synapses.append(h.ProbAMPANMDA2_RATIO(0.6, sec = dend))
-    hotspot_NMDA_netstims.append(h.NetStim(0.5, sec = dend))
+    hotspot_NMDA_synapses.append(h.ProbAMPANMDA2_RATIO(dend(0.6)))
+    hotspot_NMDA_netstims.append(h.NetStim(dend(0.5)))
     hotspot_NMDA_netcons.append(h.NetCon(hotspot_NMDA_netstims[j], hotspot_NMDA_synapses[j]))
 
     hotspot_NMDA_synapses[j].tau_r_AMPA = 0.33 # AMPA rise time
@@ -65,19 +65,19 @@ for j in range(20):
     hotspot_NMDA_netstims[j].interval = 50  # mean time between spikes |50 ms = 20 Hz|
 
 #create one inhibitory synapse at location 0.1
-on_path_inhibition = h.Exp2Syn(0.2, sec = dend) 
+on_path_inhibition = h.Exp2Syn(dend(0.2)) 
 on_path_inhibition.tau1 = 0.01 # synapse rise time
 on_path_inhibition.tau2 = 9e9  # synapse decay time
 on_path_inhibition.e    = v_rest
 
 #create one inhibitory synapse at location 0.9
-off_path_inhibition  = h.Exp2Syn(0.99, sec = dend)
+off_path_inhibition  = h.Exp2Syn(dend(0.99))
 off_path_inhibition.tau1 = 0.01
 off_path_inhibition.tau2 = 9e9
 off_path_inhibition.e    = v_rest
 
 #create a NetStim that will activate the synapses  at t=1000
-inhibition_netstim = h.NetStim(0.5, sec = dend)
+inhibition_netstim = h.NetStim(dend(0.5))
 inhibition_netstim.number = 1   # number of synaptic activation
 inhibition_netstim.start = 1000 # activation start time
 inhibition_netstim.noise = 0    # randomness
