@@ -18,4 +18,4 @@ After completing the installations download the **[NEURON_tutorial.pptx](https:/
  
  Feel free to open [Issues](https://github.com/orena1/NEURON_tutorial/issues) if you find any bugs, or have any suggestions.
  
- You can follow my lastest research in [Twitter](https://twitter.com/Oren_Amsalem)
+ You can follow my lastest research on [Twitter](https://twitter.com/Oren_Amsalem)
